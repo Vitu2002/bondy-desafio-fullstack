@@ -8,7 +8,6 @@ export default gql`
 
   type LoginResponse {
     message: String
-    success: Boolean
     user: User
   }
 
