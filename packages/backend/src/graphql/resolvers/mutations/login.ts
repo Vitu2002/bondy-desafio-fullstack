@@ -10,37 +10,26 @@ export const mutationLogin = async (
   try {
     // Verificando se os argumentos estão preenchidos e válidos
     if (!args.email || !args.password)
-      return {
-        message: 'Email and password are required',
-        success: false,
-      }
+      throw new Error('Email and password are required')
 
     // Validando email
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
-    if (!emailRegex.test(args.email))
-      return { message: 'Invalid email format', success: false }
+    if (!emailRegex.test(args.email)) throw new Error('Invalid email format')
 
     // Validando senha
     if (args.password.length < 4 || args.password.length > 8)
-      return {
-        message: 'Password must be between 4 and 8 characters',
-        success: false,
-      }
+      throw new Error('Password must be between 4 and 8 characters')
 
     const data = await User.findOne({ email: args.email })
-    if (!data) return { message: 'Invalid credentials', success: false }
+    if (!data) throw new Error('Invalid credentials')
     const { password, _id, ...user } = data.toObject()
 
     const isValidPasswod = await compare(args.password, password)
-    if (!isValidPasswod)
-      return { message: 'Invalid credentials', success: false }
+    if (!isValidPasswod) throw new Error('Invalid credentials')
 
-    return { user, success: true, message: 'Login successful' }
+    return { user, message: 'Login successful' }
   } catch (err) {
-    return {
-      message: (err.message as string) || 'Internal server error',
-      success: false,
-    }
+    throw new Error(err.message || 'Internal server error')
   }
 }
 
