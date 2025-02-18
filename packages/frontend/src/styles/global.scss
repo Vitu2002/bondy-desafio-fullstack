@@ -1,0 +1,92 @@
+// Sass modules
+@use "sass:color";
+@use "./variables" as *;
+
+// Global styles
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  background-color: $background-color;
+}
+
+body {
+  background-color: $background-color;
+  color: $text-color;
+  font-family: "Arial", sans-serif;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
+}
+
+a {
+  color: $primary-color;
+  text-decoration: none;
+}
+
+a:hover {
+  color: $accent-color;
+}
+
+// Titles
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: $secondary-color;
+}
+
+// Buttons
+button {
+  background-color: $primary-color;
+  color: $secondary-color;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  outline: none;
+  border: none;
+
+  &:hover {
+    background-color: color.adjust($primary-color, $lightness: -20%);
+  }
+}
+
+// Input fields
+input,
+textarea {
+  background-color: #333;
+  color: $text-color;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: all 0.3s ease-in-out;
+  outline: none;
+  border: 2px solid color.adjust($secondary-color, $lightness: -40%);
+
+  &:active,
+  &:focus,
+  &:hover,
+  &:not(:placeholder-shown) {
+    border-color: $accent-color;
+  }
+}
+
+// Responsividade
+@media (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+
+  button {
+    font-size: 14px;
+  }
+}
