@@ -1,4 +1,5 @@
 import { GraphQLResolveInfo } from 'graphql'
+import { mutationLogin } from './login'
 import { mutationTest } from './mutationTest'
 
 export default {
@@ -8,4 +9,5 @@ export default {
     context: any,
     info: GraphQLResolveInfo
   ) => mutationTest(parent, args, context, info),
+  mutationLogin,
 }
